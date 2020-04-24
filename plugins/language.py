@@ -4,9 +4,12 @@ from mmpy_bot.dispatcher import Message
 from langdetect.lang_detect_exception import LangDetectException
 
 @respond_to('.*')
-def give_me(message):
-    print(message.__dict__)
-    message.react('-1')
+def give_me(message: Message):
+    try:
+        langs = detect_langs(message.get_message())
+        message.reply_thread(", ".join(map(str, langs)))
+    except LangDetectException:
+        message.react('-1')
 
 @listen_to('.*')
 def to_english(message: Message):
