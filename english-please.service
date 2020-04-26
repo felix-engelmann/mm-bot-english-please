@@ -1,0 +1,13 @@
+[Unit]
+Description=English Please Mattermost Bot
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/dir/mm-bot-english-please
+ExecStart=/path/to/dir/mm-bot-english-please/env/bin/python3 /path/to/dir/mm-bot-english-please/run.py
+User=ubuntu
+Group=ubuntu
+
+[Install]
+WantedBy=multi-user.target

@@ -3,7 +3,10 @@ BOT_URL = 'https://mattermost-vs.informatik.uni-ulm.de/api/v4'  # with 'http://'
 BOT_LOGIN = 'english-please'
 #BOT_PASSWORD = '<bot-password>'
 
-from secrets import BOT_TOKEN
+try:
+    from secrets import BOT_TOKEN
+except ImportError:
+    pass
 
 # or '<bot-personal-access-token>' if you have set bot personal access token.
 BOT_TEAM = 'verteilte-systeme'  # possible in lowercase
