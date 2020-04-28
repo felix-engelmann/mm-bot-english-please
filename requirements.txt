@@ -1,2 +1,4 @@
 mmpy_bot
-langdetect
+pyicu
+pycld2
+polyglot

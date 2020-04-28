@@ -1,14 +1,14 @@
 from mmpy_bot.bot import respond_to, listen_to
-from langdetect import detect_langs
 from mmpy_bot.dispatcher import Message
-from langdetect.lang_detect_exception import LangDetectException
+from polyglot.detect import Detector
+from polyglot.detect.base import UnknownLanguage
 
 @respond_to('.*')
 def give_me(message: Message):
     try:
-        langs = detect_langs(message.get_message())
-        message.reply_thread(", ".join(map(str, langs)))
-    except LangDetectException:
+        detector = Detector(message.get_message())
+        message.reply_thread(str(detector))
+    except UnknownLanguage:
         message.react('-1')
 
 @listen_to('.*')
@@ -17,11 +17,11 @@ def to_english(message: Message):
     is_direct_message = message.is_direct_message()
     if (not is_direct_message) and url_name != "town-square":
         try:
-            langs = detect_langs(message.get_message())
-            if len(langs) == 1:
-                if langs[0].lang == 'de' and langs[0].prob > 0.99:
+            detector = Detector(message.get_message())
+            if detector.reliable is True:
+                if detector.language.code == 'de' and detector.language.confidence > 0.9:
                     if len(message.get_message().split(" ")) > 3:
                         message.react("uk")
-        except LangDetectException:
+        except Exception:
             return
         #message.reply_thread(", ".join(map(str,langs)))
