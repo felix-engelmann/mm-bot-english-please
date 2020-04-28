@@ -15,6 +15,10 @@ create virtual environment (recommended)
     python3 -m venv env
     source ./env/bin/activate
 
+install the libraries
+
+    sudo apt-get install libicu-dev
+    
 install the dependencies
 
     pip3 install -r requirements.txt
